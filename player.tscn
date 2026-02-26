@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://cnmmnqyyh38w7"]
+
+[ext_resource type="PackedScene" uid="uid://pbmyh1qru7p" path="res://characters/happy_boo/happy_boo.tscn" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://u27q32ig48ni" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="PackedScene" uid="uid://c5s2bfyk8ywu5" path="res://gun.tscn" id="3_i3pqv"]
+[ext_resource type="AudioStream" uid="uid://d4l6uqnlvfwfy" path="res://Normal Music.mp3" id="4_sweqy"]
+[ext_resource type="AudioStream" uid="uid://d32xn4jsbp21l" path="res://Low Health Music.mp3" id="5_2hs0m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
+radius = 37.054
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i3pqv"]
+radius = 50.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3pqv"]
+bg_color = Color(0.999618, 0.0426475, 0.0354768, 0.996078)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqtel"]
+bg_color = Color(4.40396e-06, 0.584803, 5.77569e-07, 0.85098)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_onrkg")
+
+[node name="HappyBoo" parent="." instance=ExtResource("1_4flbx")]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -13)
+shape = SubResource("CircleShape2D_onrkg")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Gun" parent="." instance=ExtResource("3_i3pqv")]
+position = Vector2(0, -26)
+
+[node name="HurtBox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(-1, -26)
+shape = SubResource("CircleShape2D_i3pqv")
+debug_color = Color(0.741823, 0, 0.1472, 0.42)
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = -136.0
+offset_top = -135.0
+offset_right = 138.0
+offset_bottom = -104.0
+theme_override_styles/background = SubResource("StyleBoxFlat_i3pqv")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hqtel")
+value = 100.0
+show_percentage = false
+
+[node name="Normal_BGmusic" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_sweqy")
+
+[node name="Low_BGmusic" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_2hs0m")

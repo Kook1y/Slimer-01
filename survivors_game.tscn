@@ -1,0 +1,122 @@
+[gd_scene load_steps=6 format=3 uid="uid://n2eg26kx0mq5"]
+
+[ext_resource type="PackedScene" uid="uid://cnmmnqyyh38w7" path="res://player.tscn" id="1_3cish"]
+[ext_resource type="Script" uid="uid://b5n6pd1ej6rl1" path="res://survivors_game.gd" id="1_l26od"]
+[ext_resource type="PackedScene" uid="uid://c7jlsa0dj6ldl" path="res://HUD.tscn" id="2_qqaft"]
+[ext_resource type="PackedScene" uid="uid://ctxt7o4rreciw" path="res://pine_tree.tscn" id="2_y3pti"]
+
+[sub_resource type="Curve2D" id="Curve2D_l26od"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 2422, 1284, 0, 0, 0, 0, -190, 1282, 0, 0, 0, 0, -181, -126, 0, 0, 0, 0, 2411, -101, 0, 0, 0, 0, 2422, 1284, 0, 0, 0, 0, 2422, 1284)
+}
+point_count = 6
+
+[node name="Game" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_l26od")
+
+[node name="HUD" parent="." instance=ExtResource("2_qqaft")]
+unique_name_in_owner = true
+layer = 4
+scale = Vector2(10, 2)
+transform = Transform2D(10, 0, 0, 2, 0, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -30
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1922.0
+offset_bottom = 1079.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Player" parent="." instance=ExtResource("1_3cish")]
+position = Vector2(910, 557)
+
+[node name="Path2D" type="Path2D" parent="Player"]
+position = Vector2(-910, -557)
+curve = SubResource("Curve2D_l26od")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D"]
+unique_name_in_owner = true
+position = Vector2(2422, 1284)
+rotation = -3.14083
+
+[node name="PineTree" parent="." instance=ExtResource("2_y3pti")]
+position = Vector2(792, 245)
+
+[node name="PineTree2" parent="." instance=ExtResource("2_y3pti")]
+position = Vector2(1405, 431)
+
+[node name="PineTree3" parent="." instance=ExtResource("2_y3pti")]
+position = Vector2(207, 625)
+
+[node name="PineTree4" parent="." instance=ExtResource("2_y3pti")]
+position = Vector2(1302, 867)
+
+[node name="PineTree5" parent="." instance=ExtResource("2_y3pti")]
+position = Vector2(461, 899)
+
+[node name="PineTree6" parent="." instance=ExtResource("2_y3pti")]
+position = Vector2(1511, 456)
+
+[node name="PineTree7" parent="." instance=ExtResource("2_y3pti")]
+position = Vector2(1442, 471)
+
+[node name="PineTree8" parent="." instance=ExtResource("2_y3pti")]
+position = Vector2(304, 183)
+
+[node name="PineTree9" parent="." instance=ExtResource("2_y3pti")]
+position = Vector2(1779, 805)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.3
+autostart = true
+
+[node name="Get Slimed" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Get Slimed"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.513726)
+
+[node name="Label" type="Label" parent="Get Slimed/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -11.5
+offset_right = 43.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 150
+text = "Get Slimed!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MenuButton" type="Button" parent="Get Slimed"]
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -15.5
+offset_right = 48.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Main Menu"
+
+[connection signal="health_deplated" from="Player" to="." method="_on_player_health_deplated"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="Get Slimed/MenuButton" to="." method="_on_menu_button_pressed"]

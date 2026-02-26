@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7jlsa0dj6ldl"]
+
+[ext_resource type="Script" uid="uid://cxrsumpwruaur" path="res://hud.gd" id="1_k5de2"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_k5de2")
+
+[node name="BuffContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 129.0
+offset_bottom = 49.0
+
+[node name="SpeedBar" type="ProgressBar" parent="BuffContainer"]
+visible = false
+layout_mode = 0
+offset_left = 3.0
+offset_top = 5.0
+offset_right = 43.0
+offset_bottom = 58.0
+show_percentage = false
